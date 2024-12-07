@@ -1,0 +1,131 @@
+# Informações sobre a máquina e data
+echo "O nome da máquina é $(hostname) e hoje é $(date +%A), $(date +%d-%m-%Y)" 
+
+# Registrar o horário de início do sistema em um arquivo
+echo "$(date +[%H:%M:%S]) O sistema iniciou" > saida.log
+
+# Executa comando do history pelo número
+!numero_do_comando_no_arquivo_history 
+
+# Links simbólicos e físicos
+ln -s /home/usuario/arquivo /home/usuario/atalho # Link simbólico (soft link)
+ln /home/usuario/arquivo /home/usuario/atalho    # Link físico (hard link)
+
+# Criação de diretórios
+mkdir -p dir0/dir{1,2,3} # Cria dir1, dir2 e dir3 dentro de dir0
+
+# Comandos grep
+grep -c "palavra" arquivo   # Conta quantas vezes "palavra" aparece no arquivo
+grep -i "palavra" arquivo   # Ignora maiúsculas e minúsculas
+grep -l "palavra" arquivo   # Lista arquivos contendo "palavra"
+grep -v "palavra" arquivo   # Lista linhas que NÃO contém "palavra"
+grep -o "palavra" arquivo   # Lista apenas "palavra"
+
+# Comando find
+find /home/allyson -name "a*" -type d # Busca diretórios que começam com "a"
+find /home/allyson -ctime +1          # Arquivos criados há mais de um dia
+find /home/allyson -name "a*" -exec cp {} dir/ \; # Copia arquivos para dir/
+
+# Ordenação de arquivos
+sort -k2 arquivo                # Ordena pela segunda coluna
+sort -t "@" -k2 arquivo          # Ordena pela segunda coluna, usando "@" como separador
+
+# Gerenciamento de permissões
+chmod u+x, g-x, o-x arquivo      # Ajusta permissões de execução
+chgrp ubuntu arquivo             # Muda grupo do arquivo para 'ubuntu'
+chmod g-w+rx, o-rwx arquivo      # Ajusta permissões para grupo e outros
+
+# Data e hora
+date +%H:%M:%S                   # Hora atual no formato HH:MM:SS
+date +%d/%m/%Y                   # Data atual no formato DD/MM/AAAA
+
+# Tamanho de diretório
+du -sh /home/allyson              # Exibe tamanho de /home/allyson
+
+# Compactação e descompactação
+tar -cvf site.tar /teste         # Cria arquivo TAR
+gzip site.tar                    # Compacta usando gzip
+tar -czvf site.tar.gz /teste     # Cria e compacta com gzip
+tar -cjvf site.tar.bz2 /teste    # Cria e compacta com bzip2
+tar -xjvf site.tar.bz2           # Descompacta arquivo bzip2
+
+# Alteração de hostname
+sudo hostnamectl set-hostname nome_do_host
+
+# Remover linhas vazias de um arquivo
+grep -v '^$' arquivo.txt
+
+# Expressões regulares básicas
+# Alternância, agrupamento e quantificadores
+# Exemplo: (vice-)?(presidente|governador|prefeito)
+
+# Exemplo no grep:
+grep -E 'R$' alunos.txt          # Linhas que terminam com 'R'
+grep -E '^5' alunos.txt          # Linhas que começam com '5'
+grep -E '[0-9]{6}' alunos.txt    # Linhas com exatamente 6 dígitos
+
+# Redirecionamento de saída e erros
+ls /boot /root > sucesso.log 2> erro.log   # Sucesso para sucesso.log, erros para erro.log
+ls /boot /root &> tudo.log                 # Tudo em tudo.log
+ls /boot /root 2>&1 total.log              # Redireciona erros para o sucesso e salva em total.log
+
+# Substituição de texto com sed
+sed 's/expressaoregular/cadeia/' arquivo.txt
+sed 'y/abc/ABC/' arquivo.txt               # Substitui 'a' por 'A', 'b' por 'B', etc.
+
+# Manipulação de colunas e campos
+cut -d ':' -f3 tabela.txt                  # Exibe a 3ª coluna
+tr -s ' ' < arquivo.txt                    # Substitui múltiplos espaços por um único espaço
+
+# Manipulação de arquivos
+paste -d ':' arquivo1.txt arquivo2.txt     # Junta arquivos usando ':' como delimitador
+
+# Operações aritméticas
+expr 2 + 2                                 # Soma
+expr 2 \* 2                                # Multiplicação
+expr length "string"                       # Tamanho da string
+bc <<EOF
+scale=2
+2/3
+EOF
+
+# Parâmetros em scripts
+# $0, $1, $#, $*, etc. para manipulação de parâmetros de script
+./param.sh script "redes de computadores" 2020 # Exemplo de execução com parâmetros
+
+# Remoção de arquivos por usuário
+ls -l | grep allyson.alencar | tr -s ' ' | cut -d ' ' -f9 | xargs rm -i
+
+# Avaliação em curto-circuito
+mkdir /root/atividade04 && echo "Diretório criado com sucesso!"
+[ ! -d novoDir ] && mkdir novoDir          # Cria diretório se não existir
+
+# Estruturas de repetição
+# while loop
+while [ condição ]; do
+    # Comandos
+done
+
+# until loop
+until [ condição ]; do
+    # Comandos
+done
+
+# for loop com seq
+for variável in $(seq 1 10); do
+    # Comandos
+done
+
+# for loop com decremento
+for variável in $(seq 10 -2 1); do
+    # Comandos
+done
+
+# IFS - Internal Field Separator
+OLDIFS=$IFS
+IFS=":"
+for i in $(cat /etc/passwd); do
+    echo $i
+done
+IFS=$OLDIFS
+
