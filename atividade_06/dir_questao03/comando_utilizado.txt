@@ -1,7 +1,7 @@
-echo -e "Flamengo\nMaior\nTime\ndo\nMundo" > ~/atividade06/questao03/arquivo1.txt
+echo -e "Flamengo\nMaior\nTime\ndo\nMundo" > ~/atividade06/dir_questao03/arquivo1.txt
 
-echo -e "Curso\nLinux\nShell\nScripting" > ~/atividade06/questao03/arquivo2.txt
+echo -e "Curso\nLinux\nShell\nScripting" > ~/atividade06/dir_questao03/arquivo2.txt
 
-echo -e "João\nMarcelo\nUchôa\né\nprofessor\nde\nShell-Script" > ~/atividade06/questao03/arquivo3.txt
+echo -e "João\nMarcelo\nUchôa\né\nprofessor\nde\nShell-Script" > ~/atividade06/dir_questao03/arquivo3.txt
 
 
