@@ -1,0 +1,8 @@
+João
+Marcelo
+Uchôa
+é
+professor
+de
+Shell-Script
+
