@@ -7,7 +7,7 @@ fi
 
 intervalo=$1
 diretorio=$2
-arquivolog="dirSensors.log"
+arquivolog="$diretorio/dirSensors.log"
 
 if [ ! -d "$diretorio" ]; then
     echo "diretório nao encontrado: $diretorio"
@@ -15,7 +15,8 @@ if [ ! -d "$diretorio" ]; then
 fi
 
 if [ ! -f "$arquivolog" ]; then
-    touch "$arquivolog"
+    echo "arquivo nao encontrado"
+    exit 1
 fi
 
 cd "$diretorio" || exit
@@ -26,7 +27,7 @@ quantidade_anterior=$(echo "$arquivos_anterior" | wc -l)
 while true; do
     sleep "$intervalo"
 
-    arquivos_atual=$(ls -p | grep -v /)
+    arquivos_atual=$(ls)
     quantidade_atual=$(echo "$arquivos_atual" | wc -l)
 
     if [ "$quantidade_anterior" -ne "$quantidade_atual" ]; then
@@ -46,20 +47,20 @@ while true; do
             fi
         done
 
-        echo "$data_atual Alteração! $quantidade_anterior->$quantidade_atual." >> "$arquivolog"
-
+        mensagem="$data_atual alteração! $quantidade_anterior->$quantidade_atual."
+        
         if [ "$arquivos_adicionados" != "" ]; then
-            echo "Adicionados: $arquivos_adicionados" >> "$arquivolog"
+            mensagem="$mensagem adicionados: $arquivos_adicionados"
         fi
 
         if [ "$arquivos_removidos" != "" ]; then
-            echo "Removidos: $arquivos_removidos" >> "$arquivolog"
+            mensagem="$mensagem removidos: $arquivos_removidos"
         fi
+
+        echo "$mensagem"
+        echo "$mensagem" >> "$arquivolog"
 
         arquivos_anterior=$arquivos_atual
         quantidade_anterior=$quantidade_atual
     fi
 done
-
-
-
