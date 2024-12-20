@@ -1,23 +1,8 @@
 #!/bin/bash
 
-if [ $# -ne 2 ]; then
-    echo "erro: a estrutura é $0 intervalo diretorio"
-    exit 1
-fi
-
 intervalo=$1
 diretorio=$2
-arquivolog="$diretorio/dirSensors.log"
-
-if [ ! -d "$diretorio" ]; then
-    echo "diretório nao encontrado: $diretorio"
-    exit 1
-fi
-
-if [ ! -f "$arquivolog" ]; then
-    echo "arquivo nao encontrado"
-    exit 1
-fi
+arquivolog="./dirSensors.log"
 
 cd "$diretorio" || exit
 
@@ -36,14 +21,14 @@ while true; do
         arquivos_adicionados=""
         for arquivo in $arquivos_atual; do
             if ! echo "$arquivos_anterior" | grep -q "$arquivo"; then
-                arquivos_adicionados="$arquivos_adicionados$arquivo "
+                arquivos_adicionados+="$arquivo "
             fi
         done
 
         arquivos_removidos=""
         for arquivo in $arquivos_anterior; do
             if ! echo "$arquivos_atual" | grep -q "$arquivo"; then
-                arquivos_removidos="$arquivos_removidos$arquivo "
+                arquivos_removidos+="$arquivo "
             fi
         done
 
@@ -64,3 +49,4 @@ while true; do
         quantidade_anterior=$quantidade_atual
     fi
 done
+
