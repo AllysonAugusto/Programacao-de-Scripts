@@ -1,4 +1,3 @@
-cat script.sh
 #!/bin/bash
 
 sudo su
